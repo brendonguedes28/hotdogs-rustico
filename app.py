@@ -58,7 +58,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 # Initialize the app with the extension
-db.init_app(app)
+
 
 with app.app_context():
     # Import models here to avoid circular imports
