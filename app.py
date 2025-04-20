@@ -30,7 +30,7 @@ db_url = os.environ.get("DATABASE_URL")
 if not db_url:
     raise ValueError("A variável de ambiente 'DATABASE_URL' não foi definida corretamente.")
 
-app.config['SQLALCHEMY_DATABASE_URI'] = db_url
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
     "pool_pre_ping": True,
