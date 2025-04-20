@@ -1,0 +1,15 @@
+Assistant checkpoint: Atualizar informações de entrega e contato
+
+Assistant generated file changes:
+- templates/menu.html: Atualizar informações de entrega e contato
+
+---
+
+User prompt:
+
+onde tem Fazemos entregas num raio de até 8km de nossa unidade. Para pedidos acima de R$ 90,00, a taxa de entrega é grátis.
+
+diga que fazemos entregas noformatodelivery apenas e onde temocontato (11) 9876-5432  adicioneonumero 71 993110372
+
+Replit-Commit-Author: Assistant
+Replit-Commit-Session-Id: 3f2f3b74-8a3d-4eae-b1ea-b64fe6d06c21
