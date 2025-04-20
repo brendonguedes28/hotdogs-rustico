@@ -11,21 +11,31 @@ from flask_login import LoginManager, login_required, login_user, logout_user, c
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
 
+# Crie a classe Base
 class Base(DeclarativeBase):
     pass
 
+# Inicialize o banco de dados com o SQLAlchemy
 db = SQLAlchemy(model_class=Base)
-# create the app
-app = Flask(__name__)
-app.secret_key = os.environ.get("SESSION_SECRET", "dev_secret_key")
-app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)  # needed for url_for to generate with https
 
-# Configure PostgreSQL database
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL")
+# Crie o app Flask
+app = Flask(__name__)
+
+# Configurações
+app.secret_key = os.environ.get("SESSION_SECRET", "dev_secret_key")
+app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)  # Necessário para url_for gerar com https
+
+# Configure PostgreSQL database com a variável de ambiente 'DATABASE_URL'
+db_url = os.environ.get("DATABASE_URL")
+if not db_url:
+    raise ValueError("A variável de ambiente 'DATABASE_URL' não foi definida corretamente.")
+
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {
     "pool_recycle": 300,
     "pool_pre_ping": True,
 }
+db.init_app(app)
 
 # Configure file uploads
 app.config['UPLOAD_FOLDER'] = os.path.join('static', 'images', 'products')
