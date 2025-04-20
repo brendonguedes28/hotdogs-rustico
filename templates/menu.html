@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block title %}Cardápio - Hot Dogs Rústico{% endblock %}
+
+{% block content %}
+    <!-- Menu Header -->
+    <section class="hero-section menu-hero text-center text-white">
+        <div class="container">
+            <h1 class="display-4 mb-2 logo-text text-warning">Nosso Cardápio</h1>
+            <p class="subtitle lead">Descubra nossas criações artesanais</p>
+        </div>
+    </section>
+
+    <!-- Menu Categories -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-6 offset-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text bg-warning text-dark">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" id="menu-search" class="form-control" placeholder="Buscar no cardápio..." aria-label="Buscar no cardápio">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <div class="btn-group" role="group" aria-label="Menu categories">
+                        <button type="button" class="btn btn-outline-warning active filter-btn" data-filter="all">Todos</button>
+                        {% for category in categories %}
+                        <button type="button" class="btn btn-outline-warning filter-btn" data-filter="{{ category.name|lower }}">{{ category.name }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            {% for category in categories %}
+            <div class="menu-category" id="{{ category.name|lower }}">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="category-header text-warning">{{ category.name }}</h2>
+                        <p class="lead mb-4">{{ category.description }}</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4 mb-5">
+                    {% for item in category.items %}
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item {% if item.featured %}menu-item-featured{% endif %}" data-item-name="{{ item.name|lower }}" data-item-desc="{{ item.description|lower }}">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: #ffc107;">{{ item.name }}</h5>
+                                <p class="card-text">{{ item.description }}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">{{ item.format_price() }}</span>
+                                    <span class="badge bg-secondary">{{ category.name }}</span>
+                                </div>
+                                <div class="mt-3">
+                                    <button type="button" class="btn btn-danger btn-lg w-100 order-whatsapp-btn" 
+                                            data-item-name="{{ item.name }}" 
+                                            data-item-price="{{ item.price }}"
+                                            style="margin-top: 15px; font-size: 1.3rem; font-weight: bold; padding: 15px; 
+                                                   border: 3px solid #25d366; border-radius: 10px; 
+                                                   background-color: #FF5252; color: white;">
+                                        <i class="fab fa-whatsapp" style="font-size: 1.5rem;"></i> 
+                                        PEDIR AGORA
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="bg-dark py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h3 class="text-warning mb-4">Informações Importantes</h3>
+                    <div class="card bg-dark border-light mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-utensils me-2 text-warning"></i> Todos os Hot Dogs incluem:</h5>
+                            <ul class="list-group list-group-flush bg-dark">
+                                <li class="list-group-item bg-dark text-light border-light">Pão artesanal feito diariamente</li>
+                                <li class="list-group-item bg-dark text-light border-light">Opção de adicionar batata palha (+R$ 1,00)</li>
+                                <li class="list-group-item bg-dark text-light border-light">Molhos tradicionais (ketchup e mostarda)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-info-circle me-2 text-warning"></i> Alergias e Restrições:</h5>
+                            <p class="card-text">Se você tem alguma restrição alimentar ou alergia, informe nossos atendentes. Temos opções sem glúten e sem lactose disponíveis mediante consulta.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="text-warning mb-4">Adicionais</h3>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Queijo extra (50g)</td>
+                                    <td>R$ 4,50</td>
+                                </tr>
+                                <tr>
+                                    <td>Bacon extra (30g)</td>
+                                    <td>R$ 5,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Cebola caramelizada</td>
+                                    <td>R$ 3,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Guacamole (60g)</td>
+                                    <td>R$ 6,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Maionese especial</td>
+                                    <td>R$ 2,50</td>
+                                </tr>
+                                <tr>
+                                    <td>Cogumelos salteados</td>
+                                    <td>R$ 7,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card bg-dark border-light mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-truck me-2 text-warning"></i> Delivery:</h5>
+                            <p class="card-text">Fazemos entregas apenas no formato delivery.</p>
+                            <p class="text-warning fw-bold">(71) 99311-0372 <i class="fab fa-whatsapp ms-1"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Menu search functionality
+    const searchInput = document.getElementById('menu-search');
+    const menuItems = document.querySelectorAll('.menu-item-container');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        menuItems.forEach(item => {
+            const itemCard = item.querySelector('.menu-item');
+            const itemName = itemCard.getAttribute('data-item-name');
+            const itemDesc = itemCard.getAttribute('data-item-desc');
+            
+            if (itemName.includes(searchTerm) || itemDesc.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Show/hide category headers based on visible items
+        document.querySelectorAll('.menu-category').forEach(category => {
+            const visibleItems = category.querySelectorAll('.menu-item-container[style="display: block"]').length;
+            const anyVisible = category.querySelectorAll('.menu-item-container').length > 0 && 
+                              Array.from(category.querySelectorAll('.menu-item-container'))
+                                   .some(item => item.style.display !== 'none');
+                                   
+            if (searchTerm && !anyVisible) {
+                category.style.display = 'none';
+            } else {
+                category.style.display = 'block';
+            }
+        });
+    });
+    
+    // Category filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Clear active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const filter = this.getAttribute('data-filter');
+            
+            // Show/hide categories based on filter
+            document.querySelectorAll('.menu-category').forEach(category => {
+                if (filter === 'all' || category.id === filter) {
+                    category.style.display = 'block';
+                } else {
+                    category.style.display = 'none';
+                }
+            });
+            
+            // Clear search input when filtering
+            searchInput.value = '';
+        });
+    });
+    
+    // Função para processar pedido via WhatsApp
+    function processWhatsAppOrder(itemName, itemPrice) {
+        // Criar uma mensagem simples para o WhatsApp
+        let message = `*Pedido Hot Dogs Rústico*\n\n`;
+        message += `*Item:* ${itemName}\n`;
+        message += `*Valor:* R$ ${parseFloat(itemPrice).toFixed(2).replace('.', ',')}`;
+        
+        // Codificar a mensagem para URL
+        const encodedMessage = encodeURIComponent(message);
+        
+        // Número do WhatsApp (formato: 55 + DDD + número)
+        const whatsappNumber = '5507199311037'; 
+        
+        // Criar URL do WhatsApp
+        const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        
+        // Perguntar se deseja realizar o pedido pelo WhatsApp
+        if (confirm("Gostaria de realizar o pedido por WhatsApp?")) {
+            // Abrir WhatsApp em nova aba
+            window.open(whatsappURL, '_blank');
+        }
+    }
+    
+    // Adicionar evento de clique aos botões de pedido
+    const orderButtons = document.querySelectorAll('.order-whatsapp-btn');
+    orderButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const itemName = this.getAttribute('data-item-name');
+            const itemPrice = this.getAttribute('data-item-price');
+            processWhatsAppOrder(itemName, itemPrice);
+        });
+    });
+    
+    // Adicionar efeito de hover nos botões de pedido
+    orderButtons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-3px)';
+            this.style.boxShadow = '0 10px 15px rgba(0,0,0,0.3)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = '0 6px 12px rgba(0,0,0,0.3)';
+        });
+    });
+});
+</script>
+{% endblock %}

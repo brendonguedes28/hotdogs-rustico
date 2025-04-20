@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block title %}Administração - Hot Dogs Rústico{% endblock %}
+
+{% block content %}
+    <div class="container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0 text-warning"><i class="fas fa-cog me-2"></i> Painel Administrativo</h1>
+            <div>
+                <a href="{{ url_for('add_item') }}" class="btn btn-warning">
+                    <i class="fas fa-plus me-1"></i> Novo Item
+                </a>
+                <a href="{{ url_for('logout') }}" class="btn btn-outline-light ms-2">
+                    <i class="fas fa-sign-out-alt me-1"></i> Sair
+                </a>
+            </div>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <div class="card mb-4">
+            <div class="card-header bg-dark">
+                <h5 class="mb-0 text-warning">Gerenciar Menu</h5>
+            </div>
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nome</th>
+                                <th>Categoria</th>
+                                <th>Preço</th>
+                                <th>Destaque</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td>{{ item.id }}</td>
+                                    <td class="editable" data-id="{{ item.id }}" data-field="name">{{ item.name }}</td>
+                                    <td>{{ item.category.name }}</td>
+                                    <td class="editable" data-id="{{ item.id }}" data-field="price">{{ item.format_price() }}</td>
+                                    <td>
+                                        {% if item.featured %}
+                                            <span class="badge bg-warning text-dark">Sim</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Não</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{{ url_for('edit_item', item_id=item.id) }}" class="btn btn-outline-info">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal-{{ item.id }}">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </div>
+
+                                        <!-- Delete Confirmation Modal -->
+                                        <div class="modal fade" id="deleteModal-{{ item.id }}" tabindex="-1" aria-labelledby="deleteModalLabel-{{ item.id }}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content bg-dark">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="deleteModalLabel-{{ item.id }}">Confirmar Exclusão</h5>
+                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Tem certeza que deseja excluir <strong>{{ item.name }}</strong>?
+                                                        <p class="text-danger mt-2 mb-0">Esta ação não pode ser desfeita.</p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                        <form action="{{ url_for('delete_item', item_id=item.id) }}" method="POST" style="display: inline;">
+                                                            <button type="submit" class="btn btn-danger">Excluir</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-dark">
+                        <h5 class="mb-0 text-warning">Estatísticas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6 mb-3">
+                                <div class="card bg-dark">
+                                    <div class="card-body text-center">
+                                        <h1 class="display-4 text-warning">{{ items|length }}</h1>
+                                        <p class="mb-0">Total de Items</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 mb-3">
+                                <div class="card bg-dark">
+                                    <div class="card-body text-center">
+                                        <h1 class="display-4 text-warning">{{ categories|length }}</h1>
+                                        <p class="mb-0">Categorias</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <div class="card-header bg-dark">
+                        <h5 class="mb-0 text-warning">Descrição da Página Inicial</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="homeDescription" class="form-label">Descrição</label>
+                            <textarea class="form-control" id="homeDescription" rows="4">{{ site_content.home_description }}</textarea>
+                        </div>
+                        <button class="btn btn-warning" onclick="updateHomeDescription()">Salvar Descrição</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header bg-dark">
+                        <h5 class="mb-0 text-warning">Ações Rápidas</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Acesso rápido às funcionalidades administrativas:</p>
+                        <div class="list-group">
+                            <a href="{{ url_for('home') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark">
+                                <span><i class="fas fa-home me-2"></i> Ver a Página Inicial</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                            <a href="{{ url_for('menu') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark">
+                                <span><i class="fas fa-utensils me-2"></i> Ver o Menu</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                            <a href="{{ url_for('add_item') }}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center bg-dark">
+                                <span><i class="fas fa-plus me-2"></i> Adicionar Novo Item</span>
+                                <i class="fas fa-chevron-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script>
+        function updateHomeDescription() {
+            const description = document.getElementById('homeDescription').value;
+            fetch('/admin/site-content/update', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    home_description: description
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Descrição atualizada com sucesso!');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const editables = document.querySelectorAll('.editable');
+
+            editables.forEach(editable => {
+                editable.addEventListener('click', function() {
+                    const text = this.textContent.trim();
+                    const input = document.createElement('input');
+                    input.value = text;
+                    input.className = 'form-control';
+
+                    input.addEventListener('blur', function() {
+                        const newText = this.value;
+                        editable.textContent = newText;
+
+                        // Send update to server
+                        fetch('/admin/item/' + editable.dataset.id + '/update', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                field: editable.dataset.field,
+                                value: newText
+                            })
+                        });
+                    });
+
+                    this.textContent = '';
+                    this.appendChild(input);
+                    input.focus();
+                });
+            });
+        });
+    </script>
+{% endblock %}
