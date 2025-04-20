@@ -1,4 +1,4 @@
-Flask
-gunicorn
-flask_sqlalchemy
-flask_login
+Flask==3.1.0
+gunicorn==23.0.0
+flask_sqlalchemy==3.1.1
+flask_login==0.6.3
