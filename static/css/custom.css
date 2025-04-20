@@ -1,0 +1,117 @@
+/* Custom styles for Hot Dogs Rústico */
+
+/* Logo styling */
+.logo-text {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.subtitle {
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+/* Hero section menu styling */
+.hero-section.menu-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+                url('../images/logo/logo.jpg') no-repeat center center;
+    background-size: contain;
+    background-position: center;
+    padding: 4rem 0;
+}
+
+/* Menu item styling */
+.menu-item {
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+}
+
+.menu-item-featured {
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-item-featured::before {
+    content: "Especial";
+    position: absolute;
+    top: 10px;
+    right: -30px;
+    background-color: var(--bs-warning);
+    color: var(--bs-dark);
+    padding: 5px 40px;
+    transform: rotate(45deg);
+    font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+/* Hero section styling */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                url('https://images.unsplash.com/photo-1619740455993-9e612d2b3f15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80') no-repeat center center;
+    background-size: cover;
+    padding: 6rem 0;
+}
+
+/* Category headers */
+.category-header {
+    border-bottom: 2px solid var(--bs-warning);
+    padding-bottom: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Price tag styling */
+.price-tag {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: var(--bs-warning);
+}
+
+/* Footer styling */
+footer {
+    background-color: var(--bs-dark);
+    padding: 2rem 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 0;
+    }
+    
+    .menu-item-featured::before {
+        font-size: 0.7rem;
+        padding: 3px 30px;
+    }
+
+    .logo-text {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .menu-item {
+        margin-bottom: 1rem;
+    }
+
+    .price-tag {
+        font-size: 1.1rem;
+    }
+
+    .hero-section.menu-hero {
+        padding: 2rem 0;
+        background-size: 80% auto;
+    }
+
+    .navbar-brand img {
+        height: 30px;
+    }
+}
