@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio - Hot Dogs Rústico</title>
+    
+    <!-- Bootstrap CSS from Replit CDN -->
+    <link rel="stylesheet" href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/custom.css">
+
+    <!-- Flask-Login Current User Helper -->
+    
+    <script>
+        const isAuthenticated = false;
+    </script>
+    
+    
+    
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <span class="logo-text text-warning">Hot Dogs Rústico</span>
+                <span class="d-none d-md-inline subtitle text-light ms-2">Artesanal & Gourmet</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link " href="/">
+                            <i class="fas fa-home me-1"></i> Início
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/menu">
+                            <i class="fas fa-utensils me-1"></i> Cardápio
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link " href="/login">
+                            <i class="fas fa-user-lock me-1"></i> Login
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        
+    <!-- Menu Header -->
+    <section class="hero-section text-center text-white">
+        <div class="container">
+            <h1 class="display-4 mb-2 logo-text text-warning">Nosso Cardápio</h1>
+            <p class="subtitle lead">Descubra nossas criações artesanais</p>
+        </div>
+    </section>
+
+    <!-- Menu Categories -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-md-6 offset-md-3">
+                    <div class="input-group">
+                        <span class="input-group-text bg-warning text-dark">
+                            <i class="fas fa-search"></i>
+                        </span>
+                        <input type="text" id="menu-search" class="form-control" placeholder="Buscar no cardápio..." aria-label="Buscar no cardápio">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-12 text-center">
+                    <div class="btn-group" role="group" aria-label="Menu categories">
+                        <button type="button" class="btn btn-outline-warning active filter-btn" data-filter="all">Todos</button>
+                        
+                        <button type="button" class="btn btn-outline-warning filter-btn" data-filter="tradicional">Tradicional</button>
+                        
+                        <button type="button" class="btn btn-outline-warning filter-btn" data-filter="gourmet">Gourmet</button>
+                        
+                        <button type="button" class="btn btn-outline-warning filter-btn" data-filter="vegetariano">Vegetariano</button>
+                        
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="menu-category" id="tradicional">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="category-header text-warning">Tradicional</h2>
+                        <p class="lead mb-4">Clássicos que nunca saem de moda</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4 mb-5">
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item " data-item-name="rústico simples" data-item-desc="salsicha artesanal, mostarda, ketchup e cebola caramelizada">
+                            <div class="card-body">
+                                <h5 class="card-title">Rústico Simples</h5>
+                                <p class="card-text">Salsicha artesanal, mostarda, ketchup e cebola caramelizada</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 12,90</span>
+                                    <span class="badge bg-secondary">Tradicional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item menu-item-featured" data-item-name="cachorro quente completo" data-item-desc="salsicha artesanal, molho de tomate, queijo, bacon, milho, ervilha, batata palha e maionese">
+                            <div class="card-body">
+                                <h5 class="card-title">Cachorro Quente Completo</h5>
+                                <p class="card-text">Salsicha artesanal, molho de tomate, queijo, bacon, milho, ervilha, batata palha e maionese</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 16,90</span>
+                                    <span class="badge bg-secondary">Tradicional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item menu-item-featured" data-item-name="hot dog x" data-item-desc="salsicha artesanal, molho de tomate caseiro, milho, ervilha, batata palha e maionese">
+                            <div class="card-body">
+                                <h5 class="card-title">hot dog x</h5>
+                                <p class="card-text">Salsicha artesanal, molho de tomate caseiro, milho, ervilha, batata palha e maionese</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 14,90</span>
+                                    <span class="badge bg-secondary">Tradicional</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="menu-category" id="gourmet">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="category-header text-warning">Gourmet</h2>
+                        <p class="lead mb-4">Combinações exclusivas com ingredientes premium</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4 mb-5">
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item menu-item-featured" data-item-name="rústico especial" data-item-desc="salsicha artesanal de cordeiro, molho de vinho tinto, queijo brie derretido e rúcula">
+                            <div class="card-body">
+                                <h5 class="card-title">Rústico Especial</h5>
+                                <p class="card-text">Salsicha artesanal de cordeiro, molho de vinho tinto, queijo brie derretido e rúcula</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 24,90</span>
+                                    <span class="badge bg-secondary">Gourmet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item " data-item-name="mediterrâneo" data-item-desc="linguiça artesanal de frango, homus, tomate confitado e hortelã">
+                            <div class="card-body">
+                                <h5 class="card-title">Mediterrâneo</h5>
+                                <p class="card-text">Linguiça artesanal de frango, homus, tomate confitado e hortelã</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 22,90</span>
+                                    <span class="badge bg-secondary">Gourmet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item menu-item-featured" data-item-name="hot dog trufado" data-item-desc="salsicha artesanal bovina, cogumelos salteados, queijo gruyère e maionese trufada">
+                            <div class="card-body">
+                                <h5 class="card-title">Hot Dog Trufado</h5>
+                                <p class="card-text">Salsicha artesanal bovina, cogumelos salteados, queijo gruyère e maionese trufada</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 28,90</span>
+                                    <span class="badge bg-secondary">Gourmet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="menu-category" id="vegetariano">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="category-header text-warning">Vegetariano</h2>
+                        <p class="lead mb-4">Opções saborosas sem carne</p>
+                    </div>
+                </div>
+                
+                <div class="row g-4 mb-5">
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item menu-item-featured" data-item-name="veggie dog" data-item-desc="salsicha de soja, guacamole, pico de gallo e coentro">
+                            <div class="card-body">
+                                <h5 class="card-title">Veggie Dog</h5>
+                                <p class="card-text">Salsicha de soja, guacamole, pico de gallo e coentro</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 18,90</span>
+                                    <span class="badge bg-secondary">Vegetariano</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-lg-4 menu-item-container">
+                        <div class="card h-100 menu-item " data-item-name="portobello rústico" data-item-desc="cogumelo portobello grelhado, queijo coalho, chimichurri e cebola crispy">
+                            <div class="card-body">
+                                <h5 class="card-title">Portobello Rústico</h5>
+                                <p class="card-text">Cogumelo portobello grelhado, queijo coalho, chimichurri e cebola crispy</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <span class="price-tag">R$ 19,90</span>
+                                    <span class="badge bg-secondary">Vegetariano</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Information Section -->
+    <section class="bg-dark py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <h3 class="text-warning mb-4">Informações Importantes</h3>
+                    <div class="card bg-dark border-light mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-utensils me-2 text-warning"></i> Todos os Hot Dogs incluem:</h5>
+                            <ul class="list-group list-group-flush bg-dark">
+                                <li class="list-group-item bg-dark text-light border-light">Pão artesanal feito diariamente</li>
+                                <li class="list-group-item bg-dark text-light border-light">Opção de adicionar batata palha (+R$ 1,00)</li>
+                                <li class="list-group-item bg-dark text-light border-light">Molhos tradicionais (ketchup e mostarda)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card bg-dark border-light">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-info-circle me-2 text-warning"></i> Alergias e Restrições:</h5>
+                            <p class="card-text">Se você tem alguma restrição alimentar ou alergia, informe nossos atendentes. Temos opções sem glúten e sem lactose disponíveis mediante consulta.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="text-warning mb-4">Adicionais</h3>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Queijo extra (50g)</td>
+                                    <td>R$ 4,50</td>
+                                </tr>
+                                <tr>
+                                    <td>Bacon extra (30g)</td>
+                                    <td>R$ 5,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Cebola caramelizada</td>
+                                    <td>R$ 3,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Guacamole (60g)</td>
+                                    <td>R$ 6,00</td>
+                                </tr>
+                                <tr>
+                                    <td>Maionese especial</td>
+                                    <td>R$ 2,50</td>
+                                </tr>
+                                <tr>
+                                    <td>Cogumelos salteados</td>
+                                    <td>R$ 7,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card bg-dark border-light mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-truck me-2 text-warning"></i> Delivery:</h5>
+                            <p class="card-text">Fazemos entregas num raio de até 8km de nossa unidade. Para pedidos acima de R$ 90,00, a taxa de entrega é grátis.</p>
+                            <p class="text-warning fw-bold">(11) 9876-5432 <i class="fab fa-whatsapp ms-1"></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center text-lg-start text-white mt-5">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase logo-text text-warning">Hot Dogs Rústico</h5>
+                    <p class="subtitle">Sabor artesanal em cada mordida</p>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Av. Paulista, 1578 - São Paulo, SP</p>
+                    <p><i class="fas fa-phone me-2"></i> (11) 9876-5432</p>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Horários</h5>
+                    <table class="table text-white">
+                        <tbody>
+                            <tr>
+                                <td>Segunda - Quinta:</td>
+                                <td>11:00 - 23:00</td>
+                            </tr>
+                            <tr>
+                                <td>Sexta - Sábado:</td>
+                                <td>11:00 - 01:00</td>
+                            </tr>
+                            <tr>
+                                <td>Domingo:</td>
+                                <td>12:00 - 22:00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col-lg-4 col-md-12 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-4">Siga-nos</h5>
+                    <div class="d-flex justify-content-center justify-content-lg-start">
+                        <a href="#" class="btn btn-outline-light btn-floating m-1"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-floating m-1"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="btn btn-outline-light btn-floating m-1"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                    <p class="mt-4">
+                        Receba ofertas e novidades exclusivas! Assine nossa newsletter:
+                    </p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Seu e-mail" aria-label="Email" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-warning" type="button" id="button-addon2">Assinar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2023 Hot Dogs Rústico. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="btn btn-warning btn-floating btn-lg" style="position: fixed; bottom: 20px; right: 20px; display: none;">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="/static/js/main.js"></script>
+    
+    
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Menu search functionality
+    const searchInput = document.getElementById('menu-search');
+    const menuItems = document.querySelectorAll('.menu-item-container');
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        menuItems.forEach(item => {
+            const itemCard = item.querySelector('.menu-item');
+            const itemName = itemCard.getAttribute('data-item-name');
+            const itemDesc = itemCard.getAttribute('data-item-desc');
+            
+            if (itemName.includes(searchTerm) || itemDesc.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+        
+        // Show/hide category headers based on visible items
+        document.querySelectorAll('.menu-category').forEach(category => {
+            const visibleItems = category.querySelectorAll('.menu-item-container[style="display: block"]').length;
+            const anyVisible = category.querySelectorAll('.menu-item-container').length > 0 && 
+                              Array.from(category.querySelectorAll('.menu-item-container'))
+                                   .some(item => item.style.display !== 'none');
+                                   
+            if (searchTerm && !anyVisible) {
+                category.style.display = 'none';
+            } else {
+                category.style.display = 'block';
+            }
+        });
+    });
+    
+    // Category filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Clear active class from all buttons
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            const filter = this.getAttribute('data-filter');
+            
+            // Show/hide categories based on filter
+            document.querySelectorAll('.menu-category').forEach(category => {
+                if (filter === 'all' || category.id === filter) {
+                    category.style.display = 'block';
+                } else {
+                    category.style.display = 'none';
+                }
+            });
+            
+            // Clear search input when filtering
+            searchInput.value = '';
+        });
+    });
+});
+</script>
+
+</body>
+</html>
