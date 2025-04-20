@@ -2,5 +2,5 @@ Flask==3.1.0
 gunicorn==23.0.0
 flask_sqlalchemy==3.1.1
 flask_login==0.6.3
-werkzeug==2.3.6  # Necessário para funcionalidades do Flask como 'secure_filename'
-psycopg2==2.9.3  # Necessário para conectar com PostgreSQL
+werkzeug>=3.1
+psycopg2==2.9.3
